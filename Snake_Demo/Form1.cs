@@ -77,12 +77,13 @@ namespace Snake_Demo
         private void Form1_Load(object sender, EventArgs e)
         {
             t = new Thread(new ThreadStart(gameThread.StartGame));
+            t.IsBackground = false;
             t.Start();
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            gameThread.GameRunning = false;
         }
     }
 }

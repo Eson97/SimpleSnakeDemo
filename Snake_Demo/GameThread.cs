@@ -9,6 +9,7 @@ namespace Snake_Demo
     internal class GameThread
     {
         public Command direction { get; set; }
+        public bool GameRunning { get; set; }
         private Snake snake;
         private List<Position> food;
         private Panel Screen;
@@ -18,6 +19,7 @@ namespace Snake_Demo
         {
             random = new Random();
             direction = Command.right;
+            GameRunning = true;
             this.snake = snake;
             this.food = food;
             this.Screen = screen;
@@ -26,7 +28,7 @@ namespace Snake_Demo
         public void StartGame()
         {
             var cicles = 1;
-            while (true)
+            while (GameRunning)
             {
                 snake.MoveTo(direction);
                 if (!snake.isSnakeAlive) break;
@@ -39,7 +41,8 @@ namespace Snake_Demo
 
                 cicles++;
             }
-            MessageBox.Show("Game Over!");
+            if(GameRunning) MessageBox.Show("Game Over!");
+            Application.Exit();
         }
 
         public void GenerateFood()
